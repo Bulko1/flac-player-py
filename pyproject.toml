@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flac-player-py"
+version = "0.5.0"
+description = "Reproductor de audio FLAC de escritorio con Tkinter y miniaudio"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Bulko1", email = "juanmorales.cl@gmail.com" }]
+keywords = ["flac", "audio", "player", "tkinter", "miniaudio"]
+dependencies = [
+    "miniaudio>=1.71",
+    "Pillow>=10.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.6",
+]
+
+[project.gui-scripts]
+flac-player = "main:main"
+
+[tool.setuptools]
+py-modules = ["main", "player", "playlist", "song", "metadata_service", "flac_meta", "storage"]
+packages = ["ui"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["B011"]

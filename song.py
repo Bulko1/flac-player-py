@@ -10,6 +10,7 @@ class Song:
     artist: str = ""
     album: str = ""
     duration: timedelta = field(default_factory=timedelta)
+    bitrate: int = 0  # bits por segundo; 0 = desconocido
     cover_path: str | None = None
 
     @property
@@ -34,6 +35,12 @@ class Song:
             return "--:--"
         total = int(self.duration_seconds)
         return f"{total // 60}:{total % 60:02d}"
+
+    @property
+    def bitrate_str(self) -> str:
+        if self.bitrate <= 0:
+            return "-- kbps"
+        return f"{round(self.bitrate / 1000)} kbps"
 
     @property
     def display_text(self) -> str:
